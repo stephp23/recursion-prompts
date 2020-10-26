@@ -71,75 +71,54 @@ var sumBelow = function (n) {
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 
-let range = function(x, y) {
-  let inter = true;
-  if (x > y) {
-    let temp = x;
-    x = y;
-    y = temp;
-    inter = false;
-  }
+// let range = function(x, y) {
+//   let integers = true;
+//   if (x > y) {
+//     let temp = x;
+//     x = y;
+//     y = temp;
+//     integers = false;
+//   }
 
-  //  x,y 
-    //happens only once at the end of all the recursive calls
-  if (x === y) return [];
-  if (x + 1 === y) return [];
-  let array = range(x, y - 1); // //<<<<<<----- recursive call (create the call stack)
-    // -----------------------
-    // (clean up) vvv happens at the end of every recursive call
+//   if (x === y) return [];
+//   if (x+1 === y) return [];
+//   let array = range(x, y - 1);
+
+//   array.push(y-1);
+//   return inter ? array : array.reverse();
   
-  array.push(y-1);
-  return inter ?
-  array : array.reverse();    
-  //* xy
-    [2,3,4,5,6,7,8] - range(2,9){
-        array = range(2,8)
-        -------------
-        array.push(8)
-        return [2,3,4,5,6,7,8]
-    }
-
-    [2,3,4,5,6,7] - range(2,8) {
-        array = range(2,7)
-        ----------------
-        array.push(7)
-        return [2,3,4,5,6,7]
-    }
-
-        ...
-    [2] --range(2,3){
-          array = range(2,2) []
-          -=--------------
-          arr
-    [2] --range(2,3){
-          array = range(2,2) []
-          -=--------------
-          array.push(2)
-          return [2]
-        } 
-        [] --- range(2,2){
-            return []
-        }
-     */
-};
 
 // 7. Compute the exponent of a number.
 // The exponent of a number says how many times the base number is used as a factor.
 // 8^2 = 8 x 8 = 64. Here, 8 is the base and 2 is the exponent.
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
-var exponent = function(base, exp) {
+// var exponent = function(base, exp) {
+// };
+
+var exponent = function (base, exp) {
+  //let bothNegandPosBase = Math.abs(base); //to try and accept a neg integer for base -> can't use complex math
+  if (exp === 0)
+    return 1; //any number raised to the zero power is always equal to 1
+  if (exp < 0) {
+    return exponent(base, exp + 1) / base;
+  }
+  if (exp > 0) {
+    return base * exponent(base, exp - 1)
+  }
+  
 };
+
 
 // 8. Determine if a number is a power of two.
 // powerOfTwo(1); // true
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function (n) {
-  if (n < 1) {
+  if (n == 1){ //first power of two is 2^0, which is equal to 1
+   return true;
+  } else if (n < 1) { //if 
       return false;
-  } else if (n === 1) {
-      return true;
   } return powerOfTwo(n / 2);
 };
 
@@ -162,42 +141,42 @@ var powerOfTwo = function (n) {
 
 
 // 9. Write a function that reverses a string.
-var reverse = function (string) {
-  if (string === "") {
-    return "";
-  } else {
-    return reverse(string.substr(1)) + string.charAt(0);
-  }
-};
+// var reverse = function (string) {
+//   if (string === "") {
+//     return "";
+//   } else {
+//     return reverse(string.substr(1)) + string.charAt(0);
+//   }
+// };
 
 // 10. Write a function that determines if a string is a palindrome.
-var palindrome = function (string) {
-  if (string.length === 0) {
-    return true;
-  }
-  if (string.length === 1) {
-    return true;
-  }
-  if (string.charAt(string.length - 1))
-    return
-  }
-  if (string.charAt(string.length - 1))
-    return palindrome(string.slice(1, string.length - 1))
-  }
-  if (string.chart(0) === string.charAt(string.length - 1)) {
-    return palindrome(string.slice(1, string.length -1))
-  }
-  return false
-};
+// var palindrome = function (string) {
+//   if (string.length === 0) {
+//     return true;
+//   }
+//   if (string.length === 1) {
+//     return true;
+//   }
+//   if (string.charAt(string.length - 1))
+//     return
+//   }
+//   if (string.charAt(string.length - 1))
+//     return palindrome(string.slice(1, string.length - 1))
+//   }
+//   if (string.chart(0) === string.charAt(string.length - 1)) {
+//     return palindrome(string.slice(1, string.length -1))
+//   }
+//   return false
+// };
 
 //other way
-var palindrome = function (string) {
-  const cleanString = string.replace(/\W/g, "").toLowerCase();
-  if (cleanString.length === 1) return true;
-  if (cleanString.length === 2) return cleanString[0] === cleanString[1];
-  if (cleanString[0] === cleanString.slice(-1)) return palindrome(cleanString.slice(1, -1))
-  return false;
-};
+// var palindrome = function (string) {
+//   const cleanString = string.replace(/\W/g, "").toLowerCase();
+//   if (cleanString.length === 1) return true;
+//   if (cleanString.length === 2) return cleanString[0] === cleanString[1];
+//   if (cleanString[0] === cleanString.slice(-1)) return palindrome(cleanString.slice(1, -1))
+//   return false;
+// };
 
 // const cleanString = string.replace(/\W/g, "");
 
@@ -206,22 +185,22 @@ var palindrome = function (string) {
 // modulo(5,2) // 1
 // modulo(17,5) // 2
 // modulo(22,6) // 4
-var modulo = function (x, y) {
-  var result = 0;
-  if (x === 0 && y === 0) {
-    return NaN;
-  }
+// var modulo = function (x, y) {
+//   var result = 0;
+//   if (x === 0 && y === 0) {
+//     return NaN;
+//   }
 
-} 
-};
+// } 
+// };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
-var multiply = function (x, y) {
-  if (x == 0 || y ==0) {
-    return multiply(x, y);
-  } else if {
-  }
+// var multiply = function (x, y) {
+//   if (x == 0 || y ==0) {
+//     return multiply(x, y);
+//   } else if {
+//   }
 
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods to arrive at an approximate quotient (ignore decimal endings).
@@ -266,6 +245,8 @@ var reverseArr = function(array) {
 // buildList(7,3) // [7,7,7]
 var buildList = function(value, length) {
 };
+
+/////////////////////////////////////////////////////
 
 // 19. Implement FizzBuzz. Given integer n, return an array of the string representations of 1 to n.
 // For multiples of three, output 'Fizz' instead of the number.
