@@ -201,12 +201,25 @@ var palindrome = function(string) {
 var modulo = function (x, y) {
   let remainderCompleteDivision = 0;
   if (x < y) {
-      return x;
-  } else if ( y === 0) {
-      return NaN;
+    return x;
+  } else if (y === 0) {
+    return NaN;
+  }
+  if (x < 0 && y > 0) {
+      if (-(x) > y) {
+        return 0
+    }
+  }
+  if (x < 0 && y < 0) {
+    if (x > y) {
+      return x
+    } else {
+      return modulo(x - y, y)
+    }
   } else {
     remainderCompleteDivision = modulo(x - y, y);
   }
+
   return remainderCompleteDivision;
 };
   
@@ -285,27 +298,38 @@ var compareStr = function(str1, str2) {
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
 var createArray = function(str) {
-  let newArray = []
+  let tempNewArray = []
   if (str.length === 0) {
-    return newArray
+    return tempNewArray
   }
-  newArray.push(str[0])
-  return newArray.concat(createArray(str.substring(1)))
+  tempNewArray.push(str[0])
+  return tempNewArray.concat(createArray(str.substring(1)))
   r
 };
 
 // 17. Reverse the order of an array
-var reverseArr = function(array) {
-  if(array.length === 0) return [];
-  let temp = [];
-  temp.push(array[array.length -1]);
-  return temp.concat(reverseArr(array.slice(0, array.length -1)))
+var reverseArr = function (array) {
+  let tempNewArray = []
+
+  if (array.length === 0) {
+    return [];
+  }
+
+  tempNewArray.push(array[array.length -1]);
+  return tempNewArray.concat(reverseArr(array.slice(0, array.length -1)))
 };
 
 // 18. Create a new array with a given value and length.
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
 var buildList = function(value, length) {
+  let tempNewArray = [];
+  if (length === 0) {
+    return []
+  }
+  
+  tempNewArray.push(value);
+  return tempNewArray.concat(buildList(value, length-1))
 };
 
 /////////////////////////////////////////////////////
