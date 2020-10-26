@@ -65,27 +65,56 @@ var sumBelow = function (n) {
     return n + 1 + sumBelow(n + 1);
   } else {
     return n - 1 + sumBelow(n - 1);
-  }
+  } 
 };
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 
-// let range = function(x, y) {
-//   let integers = true;
-//   if (x > y) {
-//     let temp = x;
-//     x = y;
-//     y = temp;
-//     integers = false;
-//   }
-
-//   if (x === y) return [];
-//   if (x+1 === y) return [];
-//   let array = range(x, y - 1);
-
-//   array.push(y-1);
-//   return inter ? array : array.reverse();
+let range = function(x, y) {
+  let  intergers = true;
+  // if x is greater than y switch x and y 
+  if (x > y) {
+    let temp = x;
+    x = y;
+    y = temp;
+    intergers = false;
+  }
+  //return Function() + function() +  function() ... + function()  + someValue
+  //  x,y 
+  //happens only once at the end of all the recursive calls
+  if (x === y) return [];
+  if (x+1 === y) return [];
+  let array = range(x, y-1); // //<<<<<<----- recursive call (create the call stack)
+  // -----------------------
+  // (clean up) vvv happens at the end of every recursive call
+  array.push(y-1);
+  return intergers ? array : array.reverse();
+  /*               x  y
+      [2,3,4,5,6,7,8] - range(2,9){
+          array = range(2,8)
+          -------------
+          array.push(8)
+          return [2,3,4,5,6,7,8]
+      }
+      [2,3,4,5,6,7] - range(2, 8) {
+          array = range(2,7)
+          ----------------
+          array.push(7)
+          return [2,3,4,5,6,7]
+      }
+      ...
+    [2]           --range(2,3){
+          array = range(2,2) //[]
+          -=--------------
+          array.push(2)
+          return [2]
+      } 
+      [] --- range(2,2){
+          return []
+      }
+   */
+}
   
 
 // 7. Compute the exponent of a number.
@@ -97,7 +126,7 @@ var sumBelow = function (n) {
 // };
 
 var exponent = function (base, exp) {
-  //let bothNegandPosBase = Math.abs(base); //to try and accept a neg integer for base -> can't use complex math
+  //tried using the math abs function to accept negative integers for base, but it didn't work. Didn't keep line as comment, since it kept giving an additional error
   if (exp === 0)
     return 1; //any number raised to the zero power is always equal to 1
   if (exp < 0) {
@@ -117,57 +146,36 @@ var exponent = function (base, exp) {
 var powerOfTwo = function (n) {
   if (n == 1){ //first power of two is 2^0, which is equal to 1
    return true;
-  } else if (n < 1) { //if 
+  } else if (n < 1) { //all powers of two are equal to or greater than 1.
       return false;
-  } return powerOfTwo(n / 2);
+  }
+  let powerThatTwoIsRaiseBy = (n / 2);
+  return powerOfTwo(powerThatTwoIsRaiseBy);
 };
 
-// var powerOfTwo = function (n) {
-//   power = n / 2;
-//   if (n < 1) {
-//     return false;
-//   } else if (n === 1) {
-//     return true;
-//   }
-//   return powerOfTwo(power);
-// };
-
-// / powerOfTwo(4 / 2)
-// // powerOfTwo(2 / 2)
-// // powerOfTwo(1)
-// // 1
-// // true
-// steps behind no. 8, if u made n = 4
-
-
 // 9. Write a function that reverses a string.
-// var reverse = function (string) {
-//   if (string === "") {
-//     return "";
-//   } else {
-//     return reverse(string.substr(1)) + string.charAt(0);
-//   }
-// };
+var reverse = function (string) {
+  if (string === "") {
+    return "";
+  } else {
+    return reverse(string.substr(1)) + string.charAt(0);
+  }
+};
 
 // 10. Write a function that determines if a string is a palindrome.
-// var palindrome = function (string) {
-//   if (string.length === 0) {
-//     return true;
-//   }
-//   if (string.length === 1) {
-//     return true;
-//   }
-//   if (string.charAt(string.length - 1))
-//     return
-//   }
-//   if (string.charAt(string.length - 1))
-//     return palindrome(string.slice(1, string.length - 1))
-//   }
-//   if (string.chart(0) === string.charAt(string.length - 1)) {
-//     return palindrome(string.slice(1, string.length -1))
-//   }
-//   return false
-// };
+var palindrome = function(string) {
+  let stringBeingChecked = string.replace(/\W/g, "").toLowerCase() ;
+  if(stringBeingChecked.length === 0 ){
+      return true;
+  } 
+  if(stringBeingChecked.length === 1){
+      return true;
+  }
+  if(stringBeingChecked.charAt(0) === stringBeingChecked.charAt(stringBeingChecked.length -1)){
+      return palindrome(stringBeingChecked.slice(1, stringBeingChecked.length -1))
+  }
+  return false;
+};
 
 //other way
 // var palindrome = function (string) {
@@ -185,18 +193,24 @@ var powerOfTwo = function (n) {
 // modulo(5,2) // 1
 // modulo(17,5) // 2
 // modulo(22,6) // 4
-// var modulo = function (x, y) {
-//   var result = 0;
-//   if (x === 0 && y === 0) {
-//     return NaN;
-//   }
+var modulo = function (x, y) {
+  let remainderCompleteDivision = 0;
+  if (x < y) {
+      return x;
+  } else if ( y === 0) {
+      return NaN;
+  } else {
+    remainderCompleteDivision = modulo(x - y, y);
+  }
+  return remainderCompleteDivision;
+};
+  
+//tried using the math abs function to accept negative integers for base, but it didn't work. Didn't keep line as comment, since it kept giving an additional error
 
-// } 
-// };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
-// var multiply = function (x, y) {
+var multiply = function (x, y) {
 //   if (x == 0 || y ==0) {
 //     return multiply(x, y);
 //   } else if {
