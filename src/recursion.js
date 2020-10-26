@@ -1,5 +1,3 @@
-/* jshint esversion: 6 */
-
 // Solve the following prompts using recursion.
 
 // 1. Calculate the factorial of a number. The factorial of a non-negative integer n,
@@ -235,7 +233,6 @@ var divide = function(x, y) {
     return 0
   }
 };
-
 
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
