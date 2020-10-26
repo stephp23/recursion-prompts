@@ -73,21 +73,18 @@ var sumBelow = function (n) {
 
 let range = function(x, y) {
   let  intergers = true;
-  // if x is greater than y switch x and y 
+   
   if (x > y) {
     let temp = x;
     x = y;
     y = temp;
     intergers = false;
   }
-  //return Function() + function() +  function() ... + function()  + someValue
-  //  x,y 
-  //happens only once at the end of all the recursive calls
+  
   if (x === y) return [];
   if (x+1 === y) return [];
-  let array = range(x, y-1); // //<<<<<<----- recursive call (create the call stack)
-  // -----------------------
-  // (clean up) vvv happens at the end of every recursive call
+  let array = range(x, y - 1); 
+  
   array.push(y-1);
   return intergers ? array : array.reverse();
   
@@ -124,6 +121,7 @@ var exponent = function (base, exp) {
 // powerOfTwo(1); // true
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
+
 var powerOfTwo = function (n) {
   if (n == 1){ //first power of two is 2^0, which is equal to 1
    return true;
