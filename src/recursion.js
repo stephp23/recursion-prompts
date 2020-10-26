@@ -90,30 +90,7 @@ let range = function(x, y) {
   // (clean up) vvv happens at the end of every recursive call
   array.push(y-1);
   return intergers ? array : array.reverse();
-  /*               x  y
-      [2,3,4,5,6,7,8] - range(2,9){
-          array = range(2,8)
-          -------------
-          array.push(8)
-          return [2,3,4,5,6,7,8]
-      }
-      [2,3,4,5,6,7] - range(2, 8) {
-          array = range(2,7)
-          ----------------
-          array.push(7)
-          return [2,3,4,5,6,7]
-      }
-      ...
-    [2]           --range(2,3){
-          array = range(2,2) //[]
-          -=--------------
-          array.push(2)
-          return [2]
-      } 
-      [] --- range(2,2){
-          return []
-      }
-   */
+  
 }
   
 
