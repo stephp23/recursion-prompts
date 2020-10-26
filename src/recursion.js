@@ -197,6 +197,7 @@ var palindrome = function(string) {
 // modulo(5,2) // 1
 // modulo(17,5) // 2
 // modulo(22,6) // 4
+
 var modulo = function (x, y) {
   let remainderCompleteDivision = 0;
   if (x < y) {
@@ -214,54 +215,40 @@ var modulo = function (x, y) {
 
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
-var modulo = function(x, y) {
-  if (x === 0) {
-    if (y === 0) {
-      return NaN
-    } else {
+
+var multiply = function(x, y) {
+  if (x == 0 || y == 0) {
       return 0;
-    }
-  }
-  if (y === 0) {
-    return NaN
-  }
-  if (y === 1) {
-    return 0;
-  }
-  if (x < 0 && y < 0) {
-    if (x > y) {
-      return x
-    } else {
-      return modulo(x-y, y)
-    }
-  } else if (x < 0 && y > 0) {
-    if (-(x) > y) {
-      return 0
-    }
-  }
-  if (x > y) {
-    return modulo(x-y, y)
+  } else if( y < 0 ) {
+      return - x + multiply(x, y + 1);
   } else {
-    return x
+      return x + multiply(x, y - 1);
   }
 };
 
+
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods to arrive at an approximate quotient (ignore decimal endings).
-var multiply = function(x, y) {
-  if (x === 0 || y === 0) {
-    return 0;
+
+var divide = function(x, y) {
+  if (x === 0 && y === 0) {
+    return NaN
+  } else if (x === y) {
+    return 1
+  }
+  if (x < y) {
+    return 0
   }
   if (x > 0 && y > 0) {
-    return x + multiply(x, y-1)
-  } else if (x > 0 && y < 0) {
-    return -x + multiply(x, y+1)
-  } else if (x < 0 && y > 0) {
-    return x + multiply(x, y-1)
+    if (x > y) {
+      return 1 + divide(x-y, y)
+    }
   } else {
-    return -(x) + multiply(x, y+1)
+    return 0
   }
 };
+
+
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
 // integers is the greatest integer that divides both x and y with no remainder.
@@ -269,7 +256,15 @@ var multiply = function(x, y) {
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 var gcd = function(x, y) {
-};
+  if(x < 0 || y < 0){
+      return null 
+  }
+  if(y != 0) {
+      return gcd(y , x % y)
+  } else  {
+      return x
+  }
+  };
 
 // 15. Write a function that compares each character of two strings and returns true if
 // both are identical.
